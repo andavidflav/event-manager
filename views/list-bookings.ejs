@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List of Bookings</title>
+</head>
+<body>
+  <h1>Bookings</h1>
+  <table border="1">
+    <tr>
+      <th>Booking ID</th>
+      <th>Event ID</th>
+      <th>User Name</th>
+      <th>Full-Price Tickets</th>
+      <th>Concession Tickets</th>
+      <th>QR Code</th> <!-- Add a column for QR code -->
+    </tr>
+    <% bookings.forEach(booking => { %>
+      <tr>
+        <td><%= booking.booking_id %></td>
+        <td><%= booking.event_id %></td>
+        <td><%= booking.user_name %></td>
+        <td><%= booking.full_price_tickets %></td>
+        <td><%= booking.concession_tickets %></td>
+        <td>
+          <% if (booking.qr_code) { %>
+            <img src="<%= booking.qr_code %>" alt="QR Code" style="width:100px;height:100px;">
+          <% } else { %>
+            No QR Code
+          <% } %>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>

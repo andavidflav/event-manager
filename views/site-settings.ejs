@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Settings</title>
+  <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <h1>Site Settings</h1>
+    <a href="/organiser" class="button">Back to Organiser Home</a>
+  </header>
+
+  <!-- Main Content with Gap -->
+  <main style="
+    font-family: Arial, sans-serif;
+    background: #f8f9fa;
+    padding: 40px;
+    max-width: 600px;
+    margin: 100px auto; /* Added top margin for gap between navbar and form box */
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+  ">
+    <h2 style="text-align: center; color: #6a11cb; margin-bottom: 20px;">Update Site Settings</h2>
+    <form action="/organiser/settings" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+      <label for="name" style="font-size: 16px; font-weight: bold; color: #333;">Site Name:</label>
+      <input type="text" id="name" name="name" value="<%= siteName %>" required style="
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      ">
+
+      <label for="description" style="font-size: 16px; font-weight: bold; color: #333;">Site Description:</label>
+      <textarea id="description" name="description" rows="5" required style="
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      "><%= siteDescription %></textarea>
+
+      <button type="submit" class="button" style="
+        background: linear-gradient(90deg, #6a11cb, #2575fc);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      ">Save Changes</button>
+    </form>
+  </main>
+
+  <!-- Add JavaScript Validation -->
+  <script>
+    document.querySelector('form').addEventListener('submit', (e) => {
+      const name = document.getElementById('name').value.trim();
+      const description = document.getElementById('description').value.trim();
+
+      if (!name || !description) {
+        e.preventDefault(); // Prevent form submission
+        console.error('Both fields are required.');
+        alert('Both fields are required.');
+      } else {
+        console.log('Form submitted successfully with:', { name, description });
+      }
+    });
+  </script>
+</body>
+</html>

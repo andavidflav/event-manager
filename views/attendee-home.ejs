@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendee Home</title>
+  <link rel="stylesheet" href="/public/css/style.css">
+  <style>
+    /* General Body Styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    /* Navbar Styling */
+    header {
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      padding: 20px 30px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    header nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    header nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .profile img {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+    }
+
+    .profile span {
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+    }
+
+    /* Dropdown Menu Styling */
+    .profile-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: white;
+      color: #333;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      z-index: 1000;
+    }
+
+    .profile-dropdown a {
+      display: block;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #333;
+      font-size: 14px;
+      border-bottom: 1px solid #ddd;
+      transition: background-color 0.3s ease;
+    }
+
+    .profile-dropdown a:hover {
+      background: #f1f1f1;
+    }
+
+    .profile-dropdown a:last-child {
+      border-bottom: none;
+    }
+
+    /* Hero Section Styling */
+    .hero {
+      background: url('/public/images/home-bg.jpg') no-repeat center center/cover;
+      padding: 60px 30px;
+      text-align: center;
+      color: black;
+    }
+
+    .hero h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .hero button {
+      background: #ff5722;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .hero button:hover {
+      background: #e64a19;
+    }
+
+    /* Event Section Styling */
+    main {
+      padding: 20px 30px;
+    }
+
+    .events-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .event-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .event-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .event-card div {
+      padding: 15px;
+    }
+
+    .event-card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .event-card p {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .event-card a {
+      display: inline-block;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .event-card a:hover {
+      background: #0056b3;
+    }
+    
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 600px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+    }
+
+    .modal-header {
+      background: #6a11cb;
+      color: white;
+      padding: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .modal-body {
+      padding: 20px;
+    }
+
+    .modal-body img {
+      width: 100%;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      padding: 15px;
+      background: #f1f1f1;
+    }
+
+    .modal-footer button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .modal-footer button:hover {
+      background: #0056b3;
+    }
+
+    /* Overlay */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1 style="margin: 0; font-size: 24px; font-weight: bold;"><%= siteName %></h1>
+      <p style="margin: 0; font-size: 14px; color: #f0f0f0;"><%= siteDescription %></p>
+    </div>
+    <nav>
+      <a href="/attendee/tickets">My Tickets</a>
+      <div class="profile" onclick="toggleDropdown()">
+        <img src="<%= user.profile_image || '/public/images/default-profile.jpg' %>" alt="Profile">
+        <span><%= user.user_name %></span>
+        <div id="profileDropdown" class="profile-dropdown">
+          <a href="/profile/viewattendee">View Profile</a>
+          <a href="/profile/editattendee">Edit Profile</a>
+          <a href="/logout">Logout</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Welcome, <%= user.user_name %>!</h2>
+    <p>Find your next adventure with us.</p>
+  </section>
+
+  <main>
+    <h2>Upcoming Events</h2>
+    <div class="events-container">
+      <% if (events.length > 0) { %>
+        <% events.forEach(event => { %>
+          <div class="event-card">
+            <img src="<%= event.image || '/public/images/default-event.jpg' %>" alt="<%= event.title %>">
+            <div>
+              <h3><%= event.title %></h3>
+              <p><%= new Date(event.event_date).toLocaleDateString() %> - <%= event.location %></p>
+              <% if (event.full_price_tickets === 0 && event.concession_tickets === 0) { %>
+                <p style="color: red; font-weight: bold;">Sold Out</p>
+              <% } else if (bookingMap[event.event_id]) { %>
+                <a href="#"
+   onclick="showTicketModal(
+     '<%= event.title %>',
+     '<%= event.image  %>',
+     '<%= event.location %>',
+     '<%= event.event_date %>',
+     '<%= bookingMap[event.event_id]?.full_price_tickets || 0 %>',
+     '<%= bookingMap[event.event_id]?.concession_tickets || 0 %>',
+     '<%= bookingMap[event.event_id]?.booking_date %>'
+   )">
+   View Ticket
+</a>
+
+              <% } else { %>
+                <a href="/attendee/book-event/<%= event.event_id %>">Book Tickets</a>
+              <% } %>
+            </div>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <p>No upcoming events found.</p>
+      <% } %>
+    </div>
+  </main>
+<!-- Modal -->
+<div id="ticketModal" class="modal">
+  <div class="modal-header">
+    Ticket Details
+  </div>
+  <div class="modal-body">
+    <p id="ticketDetails"></p>
+  </div>
+  <div class="modal-footer">
+    <button onclick="closeTicketModal()">Close</button>
+  </div>
+</div>
+
+<!-- Overlay -->
+<div id="modalOverlay" class="overlay"></div>
+  <script>
+    function toggleDropdown() {
+      const dropdown = document.getElementById('profileDropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function showTicketModal(eventTitle, eventImage, eventLocation, eventDate, fullPriceTickets, concessionTickets, bookingDate) {
+      const modal = document.getElementById('ticketModal');
+      const overlay = document.getElementById('modalOverlay');
+      const details = `
+        <img src="${eventImage}" alt="${eventTitle}" style="width: 100%; border-radius: 5px; margin-bottom: 15px;">
+        <h3>${eventTitle}</h3>
+        <p><strong>Date:</strong> ${new Date(eventDate).toLocaleDateString()}</p>
+        <p><strong>Location:</strong> ${eventLocation}</p>
+        <p><strong>Full-Price Tickets:</strong> ${fullPriceTickets}</p>
+        <p><strong>Concession Tickets:</strong> ${concessionTickets}</p>
+        <p><strong>Booked On:</strong> ${new Date(bookingDate).toLocaleDateString()}</p>
+      `;
+
+      document.getElementById('ticketDetails').innerHTML = details;
+      modal.style.display = 'block';
+      overlay.style.display = 'block';
+    }
+
+
+    function closeTicketModal() {
+      const modal = document.getElementById('ticketModal');
+      const overlay = document.getElementById('modalOverlay');
+      modal.style.display = 'none';
+      overlay.style.display = 'none';
+    }
+
+    window.addEventListener('click', function (event) {
+      const dropdown = document.getElementById('profileDropdown');
+      const profile = document.querySelector('.profile');
+      if (dropdown && !profile.contains(event.target)) {
+        dropdown.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

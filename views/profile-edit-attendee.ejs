@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    .profile-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    input, button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-container">
+    <h1>Edit Profile</h1>
+    <form action="/profile/editattendee" method="POST">
+      <label for="user_name">Full Name:</label>
+      <input type="text" id="user_name" name="user_name" value="<%= user.user_name %>" required>
+
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" value="<%= user.username %>" required>
+
+      <label for="phone">Phone Number:</label>
+      <input type="text" id="phone" name="phone" value="<%= user.phone %>" required>
+
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+</body>
+</html>

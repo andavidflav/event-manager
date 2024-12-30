@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body class="auth-page register-page">
+  <header class="navbar">
+    <div>
+      <h1 style="margin: 0; font-size: 24px; font-weight: bold;"><%= siteName %></h1>
+      <p style="margin: 0; font-size: 14px; color: #f0f0f0;"><%= siteDescription %></p>
+    </div>
+    <a href="/" class="button">Back to Home</a>
+  </header>
+  <main class="main-container">
+    <div class="form-box">
+      <h2>Register</h2>
+      <form action="/register" method="POST" enctype="multipart/form-data">
+        <label for="user_name">Full Name:</label>
+        <input type="text" id="user_name" name="user_name" required>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Enter 10-digit phone number" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+        <label for="role">Role:</label>
+        <select id="role" name="role" required>
+          <option value="organiser">Organiser</option>
+          <option value="attendee">Attendee</option>
+        </select>
+
+        <label for="profile_image">Profile Image:</label>
+        <input type="file" id="profile_image" name="profile_image" accept="image/*">
+
+        <% if (error) { %>
+          <p class="error-message"><%= error %></p>
+        <% } %>
+
+        <button type="submit" class="button">Register</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

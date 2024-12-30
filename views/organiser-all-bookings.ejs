@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Bookings</title>
+</head>
+<body>
+  <h1>All Bookings</h1>
+  <table border="1" style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th>Booking ID</th>
+        <th>Event Title</th>
+        <th>User Name</th>
+        <th>Full-Price Tickets</th>
+        <th>Concession Tickets</th>
+        <th>Booking Date</th>
+        <th>QR Code</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (bookings.length > 0) { %>
+        <% bookings.forEach(booking => { %>
+          <tr>
+            <td><%= booking.booking_id %></td>
+            <td><%= booking.event_title %></td>
+            <td><%= booking.user_name %></td>
+            <td><%= booking.full_price_tickets %></td>
+            <td><%= booking.concession_tickets %></td>
+            <td><%= new Date(booking.booking_date).toLocaleString() %></td>
+            <td>
+              <% if (booking.qr_code) { %>
+                <img src="<%= booking.qr_code %>" alt="QR Code" style="width: 100px; height: 100px;">
+              <% } else { %>
+                No QR Code
+              <% } %>
+            </td>
+          </tr>
+        <% }); %>
+      <% } else { %>
+        <tr>
+          <td colspan="7">No bookings found.</td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</body>
+</html>

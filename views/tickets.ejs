@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tickets</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #007bff;
+    }
+
+    .tickets-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .ticket-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .ticket-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .ticket-card div {
+      padding: 15px;
+    }
+
+    .ticket-card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .ticket-card p {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>My Tickets</h1>
+  <div class="tickets-container">
+    <% if (bookings.length > 0) { %>
+      <% bookings.forEach(booking => { %>
+        <div class="ticket-card">
+          <img src="<%= booking.image || '/public/images/default-event.jpg' %>" alt="Event Image">
+          <div>
+            <h3><%= booking.event_title %></h3>
+            <p><strong>Date:</strong> <%= new Date(booking.event_date).toLocaleDateString() %></p>
+            <p><strong>Location:</strong> <%= booking.location %></p>
+            <p><strong>Full-Price Tickets:</strong> <%= booking.full_price_tickets %></p>
+            <p><strong>Concession Tickets:</strong> <%= booking.concession_tickets %></p>
+            <p><strong>Booked On:</strong> <%= new Date(booking.booking_date).toLocaleDateString() %></p>
+          </div>
+        </div>
+      <% }); %>
+    <% } else { %>
+      <p style="text-align: center; font-size: 16px; color: #555;">No tickets booked yet.</p>
+    <% } %>
+  </div>
+</body>
+</html>

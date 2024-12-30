@@ -1,0 +1,145 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+/* Navbar Styling */
+.navbar {
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  color: white;
+  padding: 15px 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.site-name {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.site-link {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.site-link:hover {
+  color: #dcdcdc;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-button {
+  text-decoration: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  border: 2px solid white;
+}
+
+.nav-button:hover {
+  background-color: white;
+  color: #6a11cb;
+}
+
+.nav-button.register {
+  background-color: white;
+  color: #2575fc;
+  border: 2px solid white;
+}
+
+.nav-button.register:hover {
+  background-color: #6a11cb;
+  color: white;
+  border: 2px solid white;
+}
+
+
+/* Hero Section Styling */
+.hero {
+  height: 100vh;
+  background: url('/public/images/home-bg.jpg') no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.overlay {
+  background-color: rgba(44, 62, 80, 0.7);
+  color: white;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 600px;
+}
+
+.overlay h2 {
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.overlay p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero h2 {
+    font-size: 28px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .nav-button {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-name {
+    font-size: 18px;
+  }
+
+  .hero h2 {
+    font-size: 24px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+}

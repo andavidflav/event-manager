@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Bookings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      padding: 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    header a {
+      background: white;
+      color: #6a11cb;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    header a:hover {
+      background: #e0e0e0;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    table thead {
+      background: #6a11cb;
+      color: white;
+    }
+
+    table thead th {
+      padding: 15px;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    table tbody tr:nth-child(even) {
+      background: #f4f4f4;
+    }
+
+    table tbody tr:hover {
+      background: #e0e0e0;
+    }
+
+    table tbody td {
+      padding: 15px;
+      font-size: 14px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    table tbody td:last-child {
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      table {
+        font-size: 12px;
+      }
+
+      header h1 {
+        font-size: 20px;
+      }
+
+      header a {
+        padding: 8px 15px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>All Bookings</h1>
+    <a href="/organiser">Back to Organiser Home</a>
+  </header>
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th>Booking ID</th>
+          <th>User Name</th>
+          <th>Event</th>
+          <th>Full-Price Tickets</th>
+          <th>Concession Tickets</th>
+          <th>Booking Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (bookings.length > 0) { %>
+          <% bookings.forEach(booking => { %>
+            <tr>
+              <td><%= booking.booking_id %></td>
+              <td><%= booking.user_name %></td>
+              <td><%= booking.event_title %></td>
+              <td><%= booking.full_price_tickets %></td>
+              <td><%= booking.concession_tickets %></td>
+              <td><%= new Date(booking.booking_date).toLocaleString() %></td>
+            </tr>
+          <% }); %>
+        <% } else { %>
+          <tr>
+            <td colspan="6" style="text-align: center; padding: 20px; color: #666;">
+              No bookings found.
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

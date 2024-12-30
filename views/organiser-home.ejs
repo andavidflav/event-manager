@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organizer Home</title>
+  <style>
+    /* Hero Section Styling */
+    .hero {
+      background: url('/public/images/home-bg.jpg') no-repeat center center/cover;
+      padding: 60px 30px;
+      text-align: center;
+      color: black;
+    }
+
+    .hero h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .hero button {
+      background: #ff5722;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .hero button:hover {
+      background: #e64a19;
+    }
+  </style>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; background-color: #f4f4f9;">
+  <!-- Navbar -->
+<header style="
+display: flex;
+justify-content: space-between;
+align-items: center;
+background: linear-gradient(90deg, #6a11cb, #2575fc);
+padding: 15px 30px;
+color: white;
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
+<div>
+  <h1 style="margin: 0; font-size: 24px; font-weight: bold;"><%= siteName %></h1>
+  <p style="margin: 0; font-size: 14px; color: #f0f0f0;"><%= siteDescription %></p>
+</div>
+<nav style="display: flex; align-items: center; gap: 15px;">
+  <a href="/organiser/bookings" style="text-decoration: none; color: white; font-weight: bold;">Bookings</a>
+  <a href="/organiser/settings" style="text-decoration: none; color: white; font-weight: bold;">Site Settings</a>
+  <div style="position: relative;">
+    <!-- Profile Section -->
+    <div onclick="toggleDropdown()" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+      <img src="<%= user.profile_image || '/public/images/default-profile.jpg' %>" alt="Profile"
+        style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;">
+      <span style="font-size: 16px; font-weight: bold;"><%= user.user_name %></span>
+    </div>
+    <!-- Dropdown Menu -->
+    <div id="profileDropdown" style="
+      display: none;
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      overflow: hidden;
+      z-index: 100;">
+      <a href="/profile/view" style="
+        display: block;
+        padding: 10px 15px;
+        text-decoration: none;
+        color: #333;
+        font-size: 14px;
+        border-bottom: 1px solid #f0f0f0;">
+        View Profile
+      </a>
+      <a href="/profile/edit" style="
+        display: block;
+        padding: 10px 15px;
+        text-decoration: none;
+        color: #333;
+        font-size: 14px;
+        border-bottom: 1px solid #f0f0f0;">
+        Edit Profile
+      </a>
+      <a href="/logout" style="
+        display: block;
+        padding: 10px 15px;
+        text-decoration: none;
+        color: #333;
+        font-size: 14px;">
+        Logout
+      </a>
+    </div>
+  </div>
+</nav>
+</header>
+
+
+
+  <main style="padding: 20px;">
+
+    <section class="hero">
+      <h2>Welcome, <%= user.user_name %>!</h2>
+      <p>Find your next adventure with us.</p>
+    </section>
+
+    <!-- Search and Add Button -->
+    <div style="
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      margin-top: 20px;">
+      <h2 style="margin: 0; font-size: 24px;">Events</h2>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <!-- <input type="text" placeholder="Search" style="
+          padding: 10px;
+          font-size: 14px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          width: 200px;"> -->
+        <button
+        style="
+          padding: 10px 20px;
+          font-size: 14px;
+          background: linear-gradient(90deg, #6a11cb, #2575fc);
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;"
+        onclick="window.location.href='/organiser/create-event'">
+        + Add
+      </button>
+      </div>
+    </div>
+
+    <!-- Draft Events Section -->
+    <section>
+      <h2 style="font-size: 20px; color: #6a11cb;">Draft Events</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;">
+        <% if (draftEvents.length > 0) { %>
+          <% draftEvents.forEach(event => { %>
+            <div style="
+              background-color: white;
+              border-radius: 10px;
+              box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+              overflow: hidden;
+              transition: transform 0.3s;">
+              <img 
+                src="<%= event.image || '/public/images/default-image.jpg' %>" 
+                alt="<%= event.title %>" 
+                style="width: 100%; height: 150px; object-fit: cover;">
+              <div style="padding: 15px;">
+                <h3 style="margin: 0 0 10px; font-size: 18px; color: #333;"><%= event.title %></h3>
+                <p style="margin: 0; font-size: 14px; color: #777;"><%= event.description %></p>
+                <button style="
+                  margin-top: 10px;
+                  background: #007bff;
+                  color: white;
+                  padding: 10px 15px;
+                  border: none;
+                  border-radius: 5px;
+                  cursor: pointer;"
+                  onclick="window.location.href='/organiser/view-event/<%= event.event_id %>'">
+                  View Details
+                </button>
+              </div>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <p>No draft events found.</p>
+        <% } %>
+      </div>
+    </section>
+
+    <!-- Published Events Section -->
+    <section>
+      <h2 style="font-size: 20px; color: #2575fc;">Published Events</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;">
+        <% if (publishedEvents.length > 0) { %>
+          <% publishedEvents.forEach(event => { %>
+            <div style="
+              background-color: white;
+              border-radius: 10px;
+              box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+              overflow: hidden;
+              transition: transform 0.3s;">
+              <img 
+                src="<%= event.image || '/public/images/default-image.jpg' %>" 
+                alt="<%= event.title %>" 
+                style="width: 100%; height: 150px; object-fit: cover;">
+              <div style="padding: 15px;">
+                <h3 style="margin: 0 0 10px; font-size: 18px; color: #333;"><%= event.title %></h3>
+                <p style="margin: 0; font-size: 14px; color: #777;"><%= event.description %></p>
+                <button style="
+                  margin-top: 10px;
+                  background: #007bff;
+                  color: white;
+                  padding: 10px 15px;
+                  border: none;
+                  border-radius: 5px;
+                  cursor: pointer;"
+                  onclick="window.location.href='/organiser/view-event/<%= event.event_id %>'">
+                  View Details
+                </button>
+              </div>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <p>No published events found.</p>
+        <% } %>
+      </div>
+    </section>
+  </main>
+  <script>
+    function toggleDropdown() {
+      const dropdown = document.getElementById('profileDropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+  
+    // Close dropdown when clicking outside
+    window.addEventListener('click', function (event) {
+      const dropdown = document.getElementById('profileDropdown');
+      const profile = document.querySelector('[onclick="toggleDropdown()"]');
+      if (dropdown && !profile.contains(event.target)) {
+        dropdown.style.display = 'none';
+      }
+    });
+  </script>
+  
+</body>
+</html>
