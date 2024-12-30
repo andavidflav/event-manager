@@ -288,7 +288,9 @@
             <img src="<%= event.image || '/public/images/default-event.jpg' %>" alt="<%= event.title %>">
             <div>
               <h3><%= event.title %></h3>
-              <p><%= new Date(event.event_date).toLocaleDateString() %> - <%= event.location %></p>
+              <p><%= new Date(event.event_date).toLocaleDateString() %> - <%= event.location %> </p>
+              <p><%= event.full_price_tickets %> tickets available</p>
+              <p><%= event.concession_tickets %> tickets available</p>
               <% if (event.full_price_tickets === 0 && event.concession_tickets === 0) { %>
                 <p style="color: red; font-weight: bold;">Sold Out</p>
               <% } else if (bookingMap[event.event_id]) { %>
